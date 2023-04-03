@@ -1,7 +1,5 @@
 import java.util.Hashtable;
 
-import org.fusesource.jansi.Ansi;
-
 public class MiniMaxPlayer extends Player {
     private Hashtable<String, Node> nodeTable;
     private Node root;
@@ -26,22 +24,16 @@ public class MiniMaxPlayer extends Player {
         double bestProb = 0.0;
         Node bestNode = null;
         for (Node child : node.children) {
-            System.out.println("Child state: " + child.getState()+ " Child ID: " + child.nodeID + " Child value: " + child.getValue() + " Child prob: " + child.probSuccess + "");
-            if (child.probSuccess >= bestProb && child.getValue() >= bestVal) {
+            if (child.getValue() > bestVal) {
                 bestVal = child.getValue();
+                bestProb = child.probSuccess;
+                bestNode = child;
+            } else if (child.getValue() == bestVal && child.probSuccess > bestProb) {
                 bestProb = child.probSuccess;
                 bestNode = child;
             }
         }
         board.makeMove(bestNode.getState());
-        System.out.println(Ansi.ansi().fg(Ansi.Color.GREEN).toString() + "Best node chosen: ");
-        bestNode.print();
-        System.out.print(Ansi.ansi().reset().toString());
-        // System.out.println(Ansi.ansi().fg(Ansi.Color.RED).toString() + "Children of best node: ");
-        // for (Node child : bestNode.children) {
-        //     child.print();
-        // }
-        // System.out.print(Ansi.ansi().reset().toString());
     }
 
     @Override
