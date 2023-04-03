@@ -25,7 +25,7 @@ public class Game {
         player1.setStarter(XTurn);
         player2.setStarter(XTurn);
         while (!gameOver) {
-            // System.out.print("\033[H\033[2J");
+            System.out.print("\033[H\033[2J");
             board.printBoard((XTurn ? player1 : player2).symbol);
             if (XTurn) {
                 player1.makeMove(board);
